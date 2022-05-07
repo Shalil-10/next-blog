@@ -13,8 +13,8 @@ const PostDetails = ({ post }) => {
 
   const router = useRouter()
 
-  if(router.isFallback){
-    return <Loader/>
+  if (router.isFallback) {
+    return <Loader />
   }
 
   return (
@@ -52,9 +52,9 @@ export async function getStaticPaths() {
   const posts = await getPosts()
 
   return {
-    paths: posts.map(({ node: { slug } }) => ({                 //slug = post.node.slug
-      params: { slug }
-    })),
+    paths: posts.map(({ node: { slug } }) => ({                   // post.node.slug                                                            
+      params: { slug }                                            // const { nestedObjectProp: { identifier } } = expression;
+    })),                                                          // const identifier = expression.nestedObjectProp.identifier;
     fallback: true
   }
 }

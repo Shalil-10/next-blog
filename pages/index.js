@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import PostCard from '../components/PostCard'
 import PostWidget from '../components/PostWidget'
@@ -6,7 +7,13 @@ import FeaturedPosts from '../sections/FeaturedPosts'
 import { getPosts } from '../services'
 
 
-export default function Home({ posts }) {
+export default function Home() {
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    getPosts()
+      .then((newPosts) => setPosts(newPosts))
+  },[])
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -22,7 +29,7 @@ export default function Home({ posts }) {
           <div className='lg:col-span-8 col-span-1'>
 
             {posts.map((post) => (
-              <PostCard post={post.node} key={post.title} />
+              <PostCard post={post.node} key={post.node.title} />   //*
             ))}
           </div>
           <div className='lg:col-span-4 col-span-1'>
@@ -38,10 +45,11 @@ export default function Home({ posts }) {
 }
 
 
-export async function getStaticProps() {
-  const posts = (await getPosts()) || []
+// export async function getStaticProps() {
+//   const posts = (await getPosts()) || []
 
-  return {
-    props: { posts }
-  }
-}
+//   return {
+//     props: { posts },
+//     revalidate: 10
+//   }
+// }

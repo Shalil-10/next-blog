@@ -5,6 +5,7 @@ import Link from 'next/link'
 const Categories = () => {
   const [categories, setCategories] = useState([])
   useEffect(() => {
+    
     getCategories()
       .then((newCategories) => setCategories(newCategories))
   }, [])
